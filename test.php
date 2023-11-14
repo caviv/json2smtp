@@ -11,10 +11,10 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 // Set the request body to the JSON data you want to send.
 $data = [
     "from" => "john doe <john@example.com>",
-    "to" => ["email1@example.com", "email2@example.com"],
-    "cc" => ["anotheremail@eample.com"],
-    "bcc" => ["hiddenemail@example.com"],
-    "subject" => "Test email from json2smtp",
+    "to" => ["gong@example.com", "gong@simple.com"],
+    "cc" => ["another@example.com", "later@sample.com"],
+    "bcc" => ["hidden@example.com", "hiddenalso@example.com"],
+    "subject" => "Test email from json2smtp 90",
     "message" => "This is a test email from json2smtp.",
     "attachments" => ["file-sample_1MB.doc"=>base64_encode(file_get_contents('file-sample_1MB.doc'))],
     // "smtphost" => "smtp.example.com",

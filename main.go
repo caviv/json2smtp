@@ -134,28 +134,26 @@ func handlejson2smtp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Send the email. (TODO: make the calls to use go routines for parallel email sending)
-	for _, to := range email.To {
-		err = sendEmail(*localsmtphost, *localsmtpport, *localsmtpuser, *localsmtppassword, email.From, to, email.Cc, email.Bcc, email.Subject, email.Message, ra)
-		if err != nil {
-			fmt.Fprintf(w, `{"error": "Error sending email: %v"}`, err)
-			log.Printf("Error sending email: %v", err)
-			return
-		}
+	err = sendEmail(*localsmtphost, *localsmtpport, *localsmtpuser, *localsmtppassword, email.From, email.To, email.Cc, email.Bcc, email.Subject, email.Message, ra)
+	if err != nil {
+		fmt.Fprintf(w, `{"error": "Error sending email: %v"}`, err)
+		log.Printf("Error sending email: %v", err)
+		return
 	}
 
 	// Respond to the client with a success message.
 	fmt.Fprintf(w, `{"success": true, "to": "%v", "subject": "%v"}`, email.To, email.Subject)
 }
 
-func sendEmail(smtphost string, smtpport int, smtpuser, smtppassword, from, to string, cc, bcc []string, subject, message string, ra realAttachments) error {
-	log.Printf("Sending email from: %v, to: %v, subject: %v", from, to, subject)
+func sendEmail(smtphost string, smtpport int, smtpuser, smtppassword, from string, to, cc, bcc []string, subject, message string, ra realAttachments) error {
+	log.Printf("Sending email from: %v, to: %v, cc: %v, bcc: %v, subject: %v", from, to, cc, bcc, subject)
 	m := gomail.NewMessage()
 
 	// Set E-Mail sender
 	m.SetHeader("From", from)
 
 	// Set E-Mail receivers
-	m.SetHeader("To", to)
+	m.SetHeader("To", to...)
 
 	// Set E-Mail subject
 	m.SetHeader("Subject", subject)
@@ -165,10 +163,10 @@ func sendEmail(smtphost string, smtpport int, smtpuser, smtppassword, from, to s
 	m.SetBody("text/html", message)
 
 	if len(cc) > 0 {
-		m.SetHeader("Cc", strings.Join(cc, ","))
+		m.SetHeader("Cc", cc...)
 	}
 	if len(bcc) > 0 {
-		m.SetHeader("Bcc", strings.Join(bcc, ","))
+		m.SetHeader("Bcc", bcc...)
 	}
 
 	// Add the attachments
