@@ -2,7 +2,7 @@
 
 An email proxy: input: **json**, output: **smtp call**
 
-For a legacy project I needed to have a **proxy** that reads **json** input and execute a **smtp** call in order to **send emails**.
+For a legacy project I needed to have a **proxy** that reads **json** input and execute a **smtp** call in order to **send emails**. So I created a small proxy for emails in go (golang)
 
 Read more about why I needed it here: https://www.c2kb.com/json2smtp
 
@@ -13,10 +13,9 @@ Simple calling diagram
 
 ## The **json** struct object
 ### Simple object:
-<pre rel="noopener">
-curl -X POST \
-  -H "Content-Type: application/json" \
-  -d '{ \
+	curl -X POST \
+	 -H "Content-Type: application/json" \
+	 -d '{ \
 	"from": "john doe &lt;john@example.com&gt;", \
 	"to": ["kermit@muppets.com", "oneperson@example.com"], \
 	"cc": ["email1@example.com"], \
@@ -24,15 +23,14 @@ curl -X POST \
 	"subject": "email subject line", \
 	"message": "message body in text/html to be sent", \
 	"attachments": {"filename.pdf": "base64 file encoded", "anotherfilename.txt": "base64 file encoded"}, \
-  }' \
-  http://localhost:8080/
-</pre>
+	 }' \
+	 http://localhost:8080/
+
 
 ### Full with smtp data:
-<pre>
-curl -X POST \
-  -H "Content-Type: application/json" \
-  -d '{ \
+	curl -X POST \
+	 -H "Content-Type: application/json" \
+	 -d '{ \
 	"from": "john doe &lt;john@example.com&gt;", \
 	"to": ["kermit@muppets.com", "oneperson@example.com"], \
 	"cc": ["email1@example.com"], \
@@ -44,44 +42,42 @@ curl -X POST \
 	"smtpport": 587 - optional paramater, \
 	"smtpuser": "username - optional parameter", \
 	"smtppassword": "password - optional parameter" \
-  }' \
-  http://localhost:8080/
-</pre>
+	 }' \
+	 http://localhost:8080/
+
 
 ## How to install:
 Download the code and run it
-<pre>
+
 	git clone https://github.com/caviv/json2smtp.git
 	go run ./
-	
-    go run ./ --help
-</pre>
+	go run ./ --help
 
-### Build
-<pre>
+### Build and compile
+Download  the code compile it and run with help command
+
 	git clone https://github.com/caviv/json2smtp.git
 	go build ./
 	./json2smtp --help
-</pre>
 
 ### Execure and Samples
-<pre>
-json2smtp utility https://www.c2kb.com/json2smtp v1.0.1 2023-11-13
-Get json input and calls smtp - function as a json to smtp proxy
-Options:
-  -port int
-    	the port to listen on (default 8080)
-  -smtphost string
-    	smtp host, e.g. smtp.example.com
-  -smtpoverride
-    	true - allows to pass smtp parameters in the json call, false will always use the config smtp data (default true)
-  -smtppassword string
-    	password for the smtp user
-  -smtpport int
-    	the port to listen on (default 587)
-  -smtpuser string
-    	username for the smtp
-</pre>
+Command line help:
+
+	json2smtp utility https://www.c2kb.com/json2smtp v1.0.1 2023-11-13
+	Get json input and calls smtp - function as a json to smtp proxy
+	Options:
+	  -port int
+	    	the port to listen on (default 8080)
+	  -smtphost string
+	    	smtp host, e.g. smtp.example.com
+	  -smtpoverride
+	    	true - allows to pass smtp parameters in the json call, false will always use the config smtp data (default true)
+	  -smtppassword string
+	    	password for the smtp user
+	  -smtpport int
+	    	the port to listen on (default 587)
+	  -smtpuser string
+	    	username for the smtp
 
 #### Example:
 	json2smtp --port=8200 --smtphost='smtp.example.com' --smtpport=587 --smtpuser='username' --smtppassword='password' --smtpoverride=false
