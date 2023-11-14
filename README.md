@@ -8,6 +8,7 @@ Read more about why I needed it here: https://www.c2kb.com/json2smtp
 
 ## How it works:
 Simple calling diagram
+
 ![Simple architecture of calling the json2smtp email proxy server with json and smtp calls](https://www.c2kb.com/json2smtp/json2smtp_architecture_1.jpg)
 
 ## The **json** struct object
