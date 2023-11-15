@@ -146,6 +146,11 @@ func handlejson2smtp(w http.ResponseWriter, r *http.Request) {
 }
 
 func sendEmail(smtphost string, smtpport int, smtpuser, smtppassword, from string, to, cc, bcc []string, subject, message string, ra realAttachments) error {
+	// clean the arrays
+	to = deleteEmpty(to)
+	cc = deleteEmpty(cc)
+	bcc = deleteEmpty(bcc)
+
 	log.Printf("Sending email from: %v, to: %v, cc: %v, bcc: %v, subject: %v", from, to, cc, bcc, subject)
 	m := gomail.NewMessage()
 
@@ -191,4 +196,14 @@ func sendEmail(smtphost string, smtpport int, smtpuser, smtppassword, from strin
 
 	log.Printf("Email success from: %v, to: %v, subject: %v", from, to, subject)
 	return nil
+}
+
+func deleteEmpty(s []string) []string {
+	var r []string
+	for _, str := range s {
+		if str != "" {
+			r = append(r, str)
+		}
+	}
+	return r
 }
