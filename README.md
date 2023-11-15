@@ -16,7 +16,7 @@ Simple calling diagram
 	curl -X POST \
 	 -H "Content-Type: application/json" \
 	 -d '{ \
-	"from": "john doe &lt;john@example.com&gt;", \
+	"from": "john doe <john@example.com>", \
 	"to": ["kermit@muppets.com", "oneperson@example.com"], \
 	"cc": ["email1@example.com"], \
 	"bcc": ["secret@example.com"], \
@@ -31,7 +31,7 @@ Simple calling diagram
 	curl -X POST \
 	 -H "Content-Type: application/json" \
 	 -d '{ \
-	"from": "john doe &lt;john@example.com&gt;", \
+	"from": "john doe <john@example.com>", \
 	"to": ["kermit@muppets.com", "oneperson@example.com"], \
 	"cc": ["email1@example.com"], \
 	"bcc": ["secret@example.com"], \
@@ -45,6 +45,8 @@ Simple calling diagram
 	 }' \
 	 http://localhost:8080/
 
+#### Attachments
+In order to send attachments with your json email struct you need to construct an object of base64 encoded string of your binary file.
 
 ## How to install:
 Download the code and run it
@@ -60,7 +62,7 @@ Download  the code compile it and run with help command
 	go build ./
 	./json2smtp --help
 
-### Execure and Samples
+### Execute the proxy and examples
 Command line help:
 
 	json2smtp utility https://www.c2kb.com/json2smtp v1.0.1 2023-11-13
