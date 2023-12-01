@@ -122,6 +122,8 @@ https://www.c2kb.com/json2smtp
 * Create delayed sending of emails / asynchronic sending - I think that could be useful
 * Allow sending of plain/html and plain/text body in emails
 
+( Look at the issues of this project: https://github.com/caviv/json2smtp/issues )
+
 ## Libraries used <a name="libraries"></a>
 This external libraries are used in the project:
 
