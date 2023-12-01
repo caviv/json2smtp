@@ -120,6 +120,7 @@ https://www.c2kb.com/json2smtp
 ## Todo: <a name="todo"></a>
 * Replace the mail.v2 package to a newer one - as recommended here: https://www.reddit.com/r/golang/comments/17w2l9s/comment/k9fve4r/
 * Create delayed sending of emails / asynchronic sending - I think that could be useful
+* Allow sending of plain/html and plain/text body in emails
 
 ## Libraries used <a name="libraries"></a>
 This external libraries are used in the project:
