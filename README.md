@@ -6,6 +6,8 @@ For a legacy project I needed to have a **proxy** that reads **json** input and 
 
 Read more about why I needed it here: https://www.c2kb.com/json2smtp
 
+NEW: If you want to use an online service of json to smtp: https://www.json2smtp.net
+
 # Table of Contents
 1. [How it works](#howitworks)
 2. [The **json** struct object](#jsonstruct)
