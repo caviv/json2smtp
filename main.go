@@ -15,7 +15,7 @@ import (
 )
 
 var smtphost *string = flag.String("smtphost", "", "smtp host, e.g. smtp.example.com")
-var smtpport *int = flag.Int("smtpport", 587, "the port to listen on")
+var smtpport *int = flag.Int("smtpport", 587, "the port to connect to the smtp")
 var smtpuser *string = flag.String("smtpuser", "", "username for the smtp")
 var smtppassword *string = flag.String("smtppassword", "", "password for the smtp user")
 var smtpoverride *bool = flag.Bool("smtpoverride", true, "true - allows to pass smtp parameters in the json call, false will always use the config smtp data")
