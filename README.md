@@ -36,14 +36,14 @@ Simple calling diagram
 ### Simple object: <a name="simpleobject"></a>
 	curl -X POST \
 	 -H "Content-Type: application/json" \
-	 -d '{ \
-	"from": "john doe <john@example.com>", \
-	"to": ["kermit@muppets.com", "oneperson@example.com"], \
-	"cc": ["email1@example.com"], \
-	"bcc": ["secret@example.com"], \
-	"subject": "email subject line", \
-	"message": "message body in text/html to be sent", \
-	"attachments": {"filename.pdf": "base64 file encoded", "anotherfilename.txt": "base64 file encoded"}, \
+	 -d '{
+	"from": "john doe <john@example.com>",
+	"to": ["kermit@muppets.com", "oneperson@example.com"],
+	"cc": ["email1@example.com"],
+	"bcc": ["secret@example.com"],
+	"subject": "email subject line",
+	"message": "message body in text/html to be sent",
+	"attachments": {"filename.pdf": "base64 file encoded", "anotherfilename.txt": "base64 file encoded"},
 	 }' \
 	 http://localhost:8080/
 
@@ -51,18 +51,18 @@ Simple calling diagram
 ### Full with smtp data: <a name="fullobject"></a>
 	curl -X POST \
 	 -H "Content-Type: application/json" \
-	 -d '{ \
-	"from": "john doe <john@example.com>", \
-	"to": ["kermit@muppets.com", "oneperson@example.com"], \
-	"cc": ["email1@example.com"], \
-	"bcc": ["secret@example.com"], \
-	"subject": "email subject line", \
-	"message": "message body in text/html to be sent", \
-	"attachments": {"filename.pdf": "base64 file encoded", "anotherfilename.txt": "base64 file encoded"}, \
-	"smtphost": "smtp.example.com - optional parameter", \
-	"smtpport": 587 - optional paramater, \
-	"smtpuser": "username - optional parameter", \
-	"smtppassword": "password - optional parameter" \
+	 -d '{
+	"from": "john doe <john@example.com>",
+	"to": ["kermit@muppets.com", "oneperson@example.com"],
+	"cc": ["email1@example.com"],
+	"bcc": ["secret@example.com"],
+	"subject": "email subject line",
+	"message": "message body in text/html to be sent",
+	"attachments": {"filename.pdf": "base64 file encoded", "anotherfilename.txt": "base64 file encoded"},
+	"smtphost": "smtp.example.com - optional parameter",
+	"smtpport": 587 - optional paramater,
+	"smtpuser": "username - optional parameter",
+	"smtppassword": "password - optional parameter"
 	 }' \
 	 http://localhost:8080/
 
