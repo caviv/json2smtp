@@ -25,6 +25,7 @@ type realAttachments map[string]string
 type Email struct {
 	// email parameters
 	From        string          `json:"from"`
+	ReplyTo     string          `json:"replyto"`
 	To          []string        `json:"to"`
 	Cc          []string        `json:"cc"`
 	Bcc         []string        `json:"bcc"`
@@ -54,6 +55,7 @@ func main() {
 		fmt.Println("\n\nParametrs to pass in the json call:")
 		fmt.Println(`{
 	"from": "john doe <john@example.com>",
+	"replyto": "john doe <john@example.com>",
 	"to": ["kermit@muppets.com", "oneperson@example.com"],
 	"cc": ["email1@example.com"],
 	"bcc": ["secret@example.com"],
@@ -134,7 +136,7 @@ func handlejson2smtp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Send the email. (TODO: make the calls to use go routines for parallel email sending)
-	err = sendEmail(*localsmtphost, *localsmtpport, *localsmtpuser, *localsmtppassword, email.From, email.To, email.Cc, email.Bcc, email.Subject, email.Message, ra)
+	err = sendEmail(*localsmtphost, *localsmtpport, *localsmtpuser, *localsmtppassword, email.From, email.ReplyTo, email.To, email.Cc, email.Bcc, email.Subject, email.Message, ra)
 	if err != nil {
 		fmt.Fprintf(w, `{"error": "Error sending email: %v"}`, err)
 		log.Printf("Error sending email: %v", err)
@@ -145,7 +147,7 @@ func handlejson2smtp(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, `{"success": true, "to": "%v", "subject": "%v"}`, email.To, email.Subject)
 }
 
-func sendEmail(smtphost string, smtpport int, smtpuser, smtppassword, from string, to, cc, bcc []string, subject, message string, ra realAttachments) error {
+func sendEmail(smtphost string, smtpport int, smtpuser, smtppassword, from, replyto string, to, cc, bcc []string, subject, message string, ra realAttachments) error {
 	// clean the arrays
 	to = deleteEmpty(to)
 	cc = deleteEmpty(cc)
@@ -159,6 +161,11 @@ func sendEmail(smtphost string, smtpport int, smtpuser, smtppassword, from strin
 
 	// Set E-Mail receivers
 	m.SetHeader("To", to...)
+
+	// Set "Reply-To" header
+	if replyto != "" {
+		m.SetHeader("Reply-To", replyto)
+	}
 
 	// Set E-Mail subject
 	m.SetHeader("Subject", subject)
